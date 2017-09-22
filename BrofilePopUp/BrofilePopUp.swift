@@ -17,7 +17,7 @@ class BrofilePopUp: UIView {
     private var bio : String!
     
     init(firstName:String, lastName:String, username:String, picture:UIImage, bio:String) {
-        super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        super.init(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
         self.firstName = firstName
         self.lastName = lastName
         self.username = username
@@ -65,7 +65,14 @@ class BrofilePopUp: UIView {
     }
     
     func show(){
-        
+        var window = UIApplication.shared.keyWindow
+        if (!(window != nil)) {
+            window = UIApplication.shared.windows.last
+        }
+        self.backgroundColor = .blue
+        self.center = (window?.center)!;
+        window?.addSubview(self)
+        window?.bringSubview(toFront: self)
     }
     
     func dismiss(){
