@@ -15,7 +15,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         let bro = BrofilePopUp(firstName: "Steven", lastName: "Lee", username: "leavenstee", picture: #imageLiteral(resourceName: "dribbble-burguer"), bio: "iOS Developer / Supreme Lord")
-        bro.show()
+        
+        bro.show(vc: self)
     }
 
     override func didReceiveMemoryWarning() {

@@ -17,7 +17,7 @@ class BrofilePopUp: UIView {
     private var bio : String!
     
     init(firstName:String, lastName:String, username:String, picture:UIImage, bio:String) {
-        super.init(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         self.firstName = firstName
         self.lastName = lastName
         self.username = username
@@ -30,22 +30,23 @@ class BrofilePopUp: UIView {
     }
     
     func setupView(){
+    
         let nameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 50))
         let userNameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 50))
         let pictureView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
         let bioLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 300))
         
-        
-        nameLabel.center = CGPoint(x: self.frame.width/2, y: 70)
+        pictureView.center = CGPoint(x: self.frame.width/2, y: 70)
+        nameLabel.center = CGPoint(x: self.frame.width/2, y: 120)
         nameLabel.textAlignment = .center
-        userNameLabel.center = CGPoint(x: self.frame.width/2, y: 120)
+        userNameLabel.center = CGPoint(x: self.frame.width/2, y: 160)
         userNameLabel.textAlignment = .center
-        bioLabel.center = CGPoint(x: self.frame.width/2, y: 140)
+        bioLabel.center = CGPoint(x: self.frame.width/2, y: 180)
         bioLabel.textAlignment = .center
         
         
-        nameLabel.text = "\(firstName) \(lastName)"
-        userNameLabel.text = "\(username)"
+        nameLabel.text = "\(firstName!) \(lastName!)"
+        userNameLabel.text = "\(username!)"
         pictureView.image = picture
         bioLabel.text = bio
         bioLabel.numberOfLines = 10
@@ -64,15 +65,11 @@ class BrofilePopUp: UIView {
         
     }
     
-    func show(){
-        var window = UIApplication.shared.keyWindow
-        if (!(window != nil)) {
-            window = UIApplication.shared.windows.last
-        }
-        self.backgroundColor = .blue
-        self.center = (window?.center)!;
-        window?.addSubview(self)
-        window?.bringSubview(toFront: self)
+    func show(vc:UIViewController){
+        self.frame = CGRect(x: 0, y: 0, width: vc.view.frame.width-100, height: vc.view.frame.height-150)
+        setupView()
+        self.center = vc.view.center
+        vc.view.addSubview(self)
     }
     
     func dismiss(){
@@ -80,3 +77,5 @@ class BrofilePopUp: UIView {
     }
 
 }
+
+
