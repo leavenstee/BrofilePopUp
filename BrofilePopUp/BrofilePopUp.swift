@@ -33,23 +33,25 @@ class BrofilePopUp: UIView {
     
         let nameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 50))
         let userNameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 50))
-        let pictureView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        let pictureView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         let bioLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 300))
         
-        pictureView.center = CGPoint(x: self.frame.width/2, y: 70)
-        nameLabel.center = CGPoint(x: self.frame.width/2, y: 120)
+        nameLabel.center = CGPoint(x: self.frame.width/2, y: 30)
         nameLabel.textAlignment = .center
-        userNameLabel.center = CGPoint(x: self.frame.width/2, y: 160)
+        pictureView.center = CGPoint(x: self.frame.width/2, y: 140)
+        userNameLabel.center = CGPoint(x: self.frame.width/2, y: 240)
         userNameLabel.textAlignment = .center
-        bioLabel.center = CGPoint(x: self.frame.width/2, y: 180)
+        bioLabel.center = CGPoint(x: self.frame.width/2, y: 260)
         bioLabel.textAlignment = .center
-        
-        
+        pictureView.layer.cornerRadius = 20
         nameLabel.text = "\(firstName!) \(lastName!)"
         userNameLabel.text = "\(username!)"
         pictureView.image = picture
         bioLabel.text = bio
         bioLabel.numberOfLines = 10
+        
+        nameLabel.font = UIFont(name: "Futura", size: 40)
+        
         
         self.addSubview(nameLabel)
         self.addSubview(userNameLabel)
@@ -66,10 +68,22 @@ class BrofilePopUp: UIView {
     }
     
     func show(vc:UIViewController){
-        self.frame = CGRect(x: 0, y: 0, width: vc.view.frame.width-100, height: vc.view.frame.height-150)
-        setupView()
+        self.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         self.center = vc.view.center
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = vc.view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        vc.view.addSubview(blurEffectView)
+        self.backgroundColor = .white
+        self.layer.cornerRadius = 20
         vc.view.addSubview(self)
+        UIView.animate(withDuration: 1.0) {
+            self.frame = CGRect(x: 0, y: 0, width: vc.view.frame.width-100, height: vc.view.frame.height-300)
+            self.center = vc.view.center
+            
+        }
+        self.setupView()
     }
     
     func dismiss(){
