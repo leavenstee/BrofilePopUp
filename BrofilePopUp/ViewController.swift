@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     
     @objc func showBro(){
         
-        let bro = BrofilePopUp(firstName: "Steven", lastName: "Lee", username: "leavenstee", picture: #imageLiteral(resourceName: "dribbble-burguer"), bio: "iOS Developer / Supreme Lord")
+        let bro = BrofilePopUp(firstName: "Steven", lastName: "Lee", username: "leavenstee", picture: #imageLiteral(resourceName: "dribbble-burguer"), bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis tempor nisi. Fusce sit amet egestas nunc, quis convallis metus. Suspendisse nisi augue, congue sed convallis ac, maximus laoreet lorem. Nunc pretium, diam vel volutpat rhoncus, mi quam fermentum erat, nec aliquet velit quam eget purus. Cras commodo nunc leo, quis pharetra leo facilisis egestas. Nunc urna purus, pellentesque sed dictum ut, vehicula id libero.")
         bro.show(vc: self)
     }
 
