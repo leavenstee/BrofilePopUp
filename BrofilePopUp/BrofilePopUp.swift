@@ -15,6 +15,8 @@ class BrofilePopUp: UIView {
     private var username : String!
     private var picture : UIImage!
     private var bio : String!
+    private var blurEffect : UIBlurEffect!
+    private var blurEffectView : UIVisualEffectView!
     
     init(firstName:String, lastName:String, username:String, picture:UIImage, bio:String) {
         super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -31,6 +33,8 @@ class BrofilePopUp: UIView {
     
     func setupView(){
     
+        self.addGestureRecognizer(UITapGestureRecognizer.init(target: self, action: #selector(dismiss)))
+        
         let nameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 50))
         let userNameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: 50))
         let pictureView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
@@ -52,7 +56,6 @@ class BrofilePopUp: UIView {
         
         nameLabel.font = UIFont(name: "Futura", size: 40)
         
-        
         self.addSubview(nameLabel)
         self.addSubview(userNameLabel)
         self.addSubview(pictureView)
@@ -68,10 +71,10 @@ class BrofilePopUp: UIView {
     }
     
     func show(vc:UIViewController){
-        self.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-        self.center = vc.view.center
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        self.frame = CGRect(x: 0, y: 0, width: vc.view.frame.width-100, height: vc.view.frame.height-300)
+        self.center = CGPoint(x: self.center.x, y: 2000)
+        blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = vc.view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         vc.view.addSubview(blurEffectView)
@@ -79,15 +82,18 @@ class BrofilePopUp: UIView {
         self.layer.cornerRadius = 20
         vc.view.addSubview(self)
         UIView.animate(withDuration: 1.0) {
-            self.frame = CGRect(x: 0, y: 0, width: vc.view.frame.width-100, height: vc.view.frame.height-300)
             self.center = vc.view.center
-            
         }
         self.setupView()
     }
     
-    func dismiss(){
-        
+    @objc func dismiss(){
+        UIView.animate(withDuration: 1.0, animations: {
+            self.center = CGPoint(x: self.center.x, y: 3000)
+        }) { (true) in
+            self.blurEffectView.removeFromSuperview()
+        }
+      
     }
 
 }
